@@ -29,7 +29,7 @@ table > tbody > tr > td.NOTRUN, table > tbody > tr > td.TIMEOUT {
 }
 
 td.OK {
-    color:  transparent;
+    color:  black;
 }
 
 td.FAIL, td.PASS, td.NOTRUN, td.TIMEOUT, td.undefined, td.OK {

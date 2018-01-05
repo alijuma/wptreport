@@ -232,7 +232,8 @@ fs.readdirSync(options.input)
                                     // this subtest is in the consolidated already
                                     foundIt = true;
                                     // we already have this one...   is this result "better" ?
-                                    if (item.status !== "PASS" && newSubtest.status == "PASS") {
+                                    // FAIL is better than timing out.
+                                    if (item.status !== "PASS" && (newSubtest.status == "PASS" || newSubtest.status == "FAIL")) {
                                         item.status = newSubtest.status;
                                         item.message = newSubtest.message;
                                     } 
@@ -379,7 +380,8 @@ testList.forEach(function(test) {
     sortNames(run.subtests).forEach(function(n) {
         result.total++;
         totalSubtests++;
-        if (!run.subtests[n].totals.PASS || run.subtests[n].totals.PASS < 2) result.fails.push({ name: n, stNum: run.subtests[n].stNum, byUA: run.subtests[n].byUA, UAmessage: run.subtests[n].UAmessage });
+        if (run.subtests[n].byUA[out.ua[0]] != run.subtests[n].byUA[out.ua[1]] 
+            || run.byUA[out.ua[0]] != run.byUA[out.ua[1]]) result.fails.push({ name: n, stNum: run.subtests[n].stNum, byUA: run.subtests[n].byUA, UAmessage: run.subtests[n].UAmessage });
         if (!run.subtests[n].totals.PASS) result.boom.push({ name: n, stNum: run.subtests[n].stNum, byUA: run.subtests[n].byUA, UAmessage: run.subtests[n].UAmessage });
         for (var i = 0, m = out.ua.length; i < m; i++) {
             var res = run.subtests[n].byUA[out.ua[i]];
